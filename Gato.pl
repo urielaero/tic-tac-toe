@@ -31,10 +31,20 @@ jugar([_,'0', '0', '0', '0', '0', '0', '0', '0', '0']) :-
 
 jugar(['f'|Argv]) :-
 	insertar(Argv, Res),
-	jugar_movimiento_facil(Res).
+	jugar_facil(Res).
 
 
 jugar([_|Argv]) :- jugar_movimiento(Argv).
+
+/*me puedo equivocar*/
+jugar_facil(Argv) :- random_between(1,5,Z), selecciona_facil(Z), jugar_movimiento_facil(Argv).
+/*muevo lo mejor que puedo*/
+jugar_facil(Argv) :- jugar_movimiento(Argv).
+
+selecciona_facil(2).
+selecciona_facil(3).
+selecciona_facil(4).
+selecciona_facil(5).
 
 jugar_movimiento_facil(Argv) :- mover(Argv, '2', ResOtro),
 	gano(ResOtro, '1', G1),
